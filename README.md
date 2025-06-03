@@ -1,5 +1,8 @@
 # WireguardGUI
 
+For this gui to work, the wireguard official client for Windows has to be installed already.
+You can get it from officiel source or use the included "installWireguardSilent.bat"
+
 in folder customisationClients you have to set:
 
 entrepriseInternalTestIP.txt: internal ip adress that the client will ping in the client GUI
