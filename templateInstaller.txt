@@ -1,0 +1,39 @@
+;;;===,,,cd /d "%~dp0"
+;;;===,,,findstr /v "^;;;===,,," "%~f0" > archive.zip
+;;;===,,,set folderPath=%ProgramFiles%\autoconnectvpn
+;;;===,,,if exist "%folderPath%" (
+;;;===,,,	taskkill /IM "autoconnectvpn.exe" /F
+;;;===,,,	taskkill /IM "autoconnectvpncurl.exe" /F
+;;;===,,,	schtasks /delete /tn autoconnectvpn /f
+;;;===,,,	echo Deleting folder "%folderPath%"...
+;;;===,,,	rmdir /s/q "%folderPath%" 2>nul
+;;;===,,,	if exist "%folderPath%" (
+;;;===,,,		echo Failed to delete folder, retrying...
+;;;===,,,		timeout /t 5 /nobreak >nul
+;;;===,,,		start "restart" "%~f0"
+;;;===,,,		exit
+;;;===,,,	) else (
+;;;===,,,		echo Folder deleted successfully.
+;;;===,,,	)
+;;;===,,,) else (
+;;;===,,,	echo Folder does not exist.
+;;;===,,,)
+;;;===,,,Call :UnZipFile "%ProgramFiles%" "%~dp0archive.zip"
+;;;===,,,start "install" "%ProgramFiles%\autoconnectvpn\install.bat"
+;;;===,,,del archive.zip
+;;;===,,,exit
+;;;===,,,:UnZipFile <ExtractTo> <newzipfile>
+;;;===,,,set vbs="%temp%\_.vbs"
+;;;===,,,if exist %vbs% del /f /q %vbs%
+;;;===,,,>%vbs%  echo Set fso = CreateObject("Scripting.FileSystemObject")
+;;;===,,,>>%vbs% echo If NOT fso.FolderExists(%1) Then
+;;;===,,,>>%vbs% echo fso.CreateFolder(%1)
+;;;===,,,>>%vbs% echo End If
+;;;===,,,>>%vbs% echo set objShell = CreateObject("Shell.Application")
+;;;===,,,>>%vbs% echo set FilesInZip=objShell.NameSpace(%2).items
+;;;===,,,>>%vbs% echo objShell.NameSpace(%1).CopyHere(FilesInZip)
+;;;===,,,>>%vbs% echo Set fso = Nothing
+;;;===,,,>>%vbs% echo Set objShell = Nothing
+;;;===,,,cscript //nologo %vbs%
+;;;===,,,if exist %vbs% del /f /q %vbs%
+;;;===,,,exit /b
