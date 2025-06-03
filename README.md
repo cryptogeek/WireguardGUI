@@ -15,4 +15,5 @@ VPNServerCentralIP.txt: should be set to the internal IP of your wireguard serve
 Once you are done with customatisation run "build installers.bat" to build the installers
 
 if you did everything right the GUI should look like this:
+
 ![gui pic](https://github.com/cryptogeek/WireguardGUI/blob/main/gui%20exemple.png?raw=true)
