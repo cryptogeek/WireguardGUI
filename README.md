@@ -1,7 +1,7 @@
 # WireguardGUI
 
 For this gui to work, the wireguard official client for Windows has to be installed already.
-You can get it from official source or use the included "installWireguardSilent.bat"
+You can get it from official source or you can build a silent Wireguard installer with: https://github.com/cryptogeek/silentWireguardInstaller
 
 in folder customisationClients you have to set:
 
